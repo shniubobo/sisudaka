@@ -376,6 +376,14 @@ def _submit_questionnaire(questionnaire):
     assert resp.status_code == 200
 
 
+def _is_questionnaire_success(student_id):
+    try:
+        _get_questionnaire_id(student_id)
+    except QuestionnaireAnsweredError:
+        return True
+    return False
+
+
 def retry_on(exception, *, times=1, interval=0):
     def decorator(wrapped):
         @wraps(wrapped)
@@ -421,6 +429,8 @@ def on_trigger(student_id, rules):
     questionnaire = _get_questionnaire(questionnaire_id, student_id)
     _answer_questionnaire(questionnaire, rules)
     _submit_questionnaire(questionnaire)
+    if not _is_questionnaire_success(student_id):
+        raise RuntimeError('未成功打卡')
     logger.info('打卡成功')
 
 
