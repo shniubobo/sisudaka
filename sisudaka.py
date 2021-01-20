@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+from datetime import datetime, time
 from functools import wraps
 import logging
 import json
@@ -323,6 +324,13 @@ class QuestionnaireAnsweredError(Exception):
     pass
 
 
+def _should_trigger_on_startup():
+    time_now = datetime.now().time()
+    if (time(5) < time_now < time(10)) or (time(18) < time_now < time(23)):
+        return True
+    return False
+
+
 def _get_questionnaire_id(student_id):
     resp = session.post(
         URL_ID,
@@ -409,11 +417,6 @@ def retry_on(exception, *, times=1, interval=0):
     return decorator
 
 
-@scheduler.scheduled_job(
-    config.TRIGGER,
-    args=(config.ID, config.RULES),
-    misfire_grace_time=None,
-)
 @retry_on(
     Exception,
     times=config.RETRY_TIMES,
@@ -436,7 +439,20 @@ def on_trigger(student_id, rules):
 
 def main():
     print(BANNER)
-    logger.info('等待中……')
+    scheduler.add_job(
+        on_trigger,
+        trigger=config.TRIGGER,
+        args=(config.ID, config.RULES),
+        misfire_grace_time=None,
+    )
+    if _should_trigger_on_startup():
+        scheduler.add_job(
+            on_trigger,
+            args=(config.ID, config.RULES),
+            misfire_grace_time=None,
+        )
+    else:
+        logger.info('等待中……')
     scheduler.start()
 
 
