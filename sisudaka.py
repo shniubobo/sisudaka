@@ -160,7 +160,7 @@ class Question:
             self._answer = self._choices[choice]
         else:
             assert text
-            assert isinstance(text, str)
+            assert isinstance(text, str) or callable(text)
             self._answer = text
 
     def get_answer(self):
@@ -313,6 +313,8 @@ class AnswerData:
             return ''
         elif isinstance(answer, Choice):
             return answer.id_
+        elif callable(answer):
+            return answer()
         else:
             return answer
 
