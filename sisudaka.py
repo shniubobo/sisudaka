@@ -376,7 +376,7 @@ def _submit_questionnaire(questionnaire):
     assert resp.status_code == 200
 
 
-def retry_on(exception=None, *, times=1, interval=0):
+def retry_on(exception, *, times=1, interval=0):
     def decorator(wrapped):
         @wraps(wrapped)
         def wrapper(*args, **kwargs):
