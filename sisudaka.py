@@ -28,8 +28,8 @@ import requests
 import config
 
 __version__ = '0.0.0+dev'
-HOMEPAGE = 'TODO'
-ISSUE_TRACKER = 'TODO'
+HOMEPAGE = 'https://github.com/shniubobo/sisudaka'
+ISSUE_TRACKER = 'https://github.com/shniubobo/sisudaka/issues'
 BANNER = f"""\
 上外自动健康打卡脚本 v{__version__}
 Copyright (C) 2021 shniubobo
