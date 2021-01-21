@@ -346,9 +346,9 @@ def _get_questionnaire_id(student_id):
     resp_json = resp.json()
     row = resp_json['rows'][0]
     title = row['TITLE']
-    logger.info(f'标题：{title}')
     if row['HASANSWER']:
         raise QuestionnaireAnsweredError(f'问卷已完成：{title}')
+    logger.info(f'标题：{title}')
     return row['ID']
 
 
