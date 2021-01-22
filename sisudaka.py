@@ -27,7 +27,7 @@ import requests
 
 import config
 
-__version__ = '0.0.0+dev'
+__version__ = '0.1.0'
 HOMEPAGE = 'https://github.com/shniubobo/sisudaka'
 ISSUE_TRACKER = 'https://github.com/shniubobo/sisudaka/issues'
 BANNER = f"""\
