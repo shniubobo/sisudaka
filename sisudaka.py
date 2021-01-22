@@ -18,8 +18,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
 from datetime import datetime, time
 from functools import wraps
-import logging
 import json
+import logging
 from time import sleep
 
 from apscheduler.schedulers.blocking import BlockingScheduler
