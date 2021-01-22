@@ -1,0 +1,17 @@
+[flake8]
+extend-exclude = env/, venv/
+format = pylint
+ignore =
+    # E121: continuation line under-indented for hanging indent
+    # E123: closing bracket does not match indentation of opening bracket’s line
+    # E126: continuation line over-indented for hanging indent
+    # E133: closing bracket is missing indentation
+    # E226: missing whitespace around arithmetic operator
+    # F403: 'from module import *' used; unable to detect undefined names
+    # F405: name may be undefined, or defined from star imports: module
+    # W503: line break before binary operator
+    # W504: line break after binary operator
+    E121, E123, E126, E133, E226, F403, F405, W503, W504
+max-complexity = 10
+show-source = True
+statistics = True
