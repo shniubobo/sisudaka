@@ -16,6 +16,8 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
+__version__ = '0.1.0+dev'
+
 from datetime import datetime, time
 from functools import wraps
 import json
@@ -28,7 +30,6 @@ import requests
 
 import config
 
-__version__ = '0.1.0+dev'
 HOMEPAGE = 'https://github.com/shniubobo/sisudaka'
 ISSUE_TRACKER = 'https://github.com/shniubobo/sisudaka/issues'
 BANNER = f"""\
