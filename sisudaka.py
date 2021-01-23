@@ -27,7 +27,7 @@ import requests
 
 import config
 
-__version__ = '0.1.0'
+__version__ = '0.1.0+dev'
 HOMEPAGE = 'https://github.com/shniubobo/sisudaka'
 ISSUE_TRACKER = 'https://github.com/shniubobo/sisudaka/issues'
 BANNER = f"""\
@@ -348,7 +348,7 @@ def _get_questionnaire_id(student_id):
     title = row['TITLE']
     if row['HASANSWER']:
         raise QuestionnaireAnsweredError(f'问卷已完成：{title}')
-    logger.info(f'标题：{title}')
+    logger.debug(f'标题：{title}')
     return row['ID']
 
 
