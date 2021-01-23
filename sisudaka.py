@@ -22,6 +22,7 @@ import json
 import logging
 from time import sleep
 
+from apscheduler.events import EVENT_JOB_EXECUTED
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 
@@ -392,6 +393,14 @@ def _is_questionnaire_success(student_id):
     return False
 
 
+def _log_next_run_time_callback(event):
+    job = scheduler.get_job(event.job_id)
+    if job is None:
+        # 没有 trigger 的 job
+        return
+    logger.info(f'下次打卡时间：{job.next_run_time.isoformat(" ")}')
+
+
 def retry_on(exception, *, times=1, interval=0):
     def decorator(wrapped):
         @wraps(wrapped)
@@ -453,6 +462,7 @@ def main():
         )
     else:
         logger.info('等待中……')
+    scheduler.add_listener(_log_next_run_time_callback, EVENT_JOB_EXECUTED)
     scheduler.start()
 
 
