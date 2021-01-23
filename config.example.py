@@ -14,3 +14,4 @@ RULES = {
 RETRY_TIMES = 5
 RETRY_INTERVAL = 10
 TRIGGER = CronTrigger(hour='5,18', minute=5)
+ERROR_CALLBACK = lambda _: None  # noqa

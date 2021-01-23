@@ -22,7 +22,7 @@ import json
 import logging
 from time import sleep
 
-from apscheduler.events import EVENT_JOB_EXECUTED
+from apscheduler.events import EVENT_JOB_ERROR, EVENT_JOB_EXECUTED
 from apscheduler.schedulers.blocking import BlockingScheduler
 import requests
 
@@ -463,6 +463,7 @@ def main():
     else:
         logger.info('等待中……')
     scheduler.add_listener(_log_next_run_time_callback, EVENT_JOB_EXECUTED)
+    scheduler.add_listener(config.ERROR_CALLBACK, EVENT_JOB_ERROR)
     scheduler.start()
 
 
